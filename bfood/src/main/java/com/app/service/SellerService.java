@@ -13,10 +13,8 @@ public class SellerService {
 	private SellerRepository sellerrepository;
 	
 	
-	public void registerSeller(Seller seller) {
-		
-		sellerrepository.save(seller);
-		
+	public void registerSeller(Seller seller) {		
+		sellerrepository.save(seller);		
 	}
 	
 	public List<Seller> viewSeller(){

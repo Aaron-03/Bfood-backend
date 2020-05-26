@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 import com.app.service.SellerService;
+import com.app.service.UbicationService;
 
 @Configuration
 @EnableWebSecurity
@@ -20,6 +21,11 @@ public class ApiConfig extends WebSecurityConfigurerAdapter {
 	@Bean
 	public SellerService sellerservice() {
 		return new SellerService();
+	}
+	
+	@Bean
+	public UbicationService ubicationservice() {
+		return new UbicationService();
 	}
 	
 	@Override
