@@ -29,7 +29,6 @@ public class ApiConfig extends WebSecurityConfigurerAdapter {
 		return new SellerService();
 	}
 	
-	
 	// ================ all reference to login
 	@Autowired
 	private UserDetailsService userDetailsService;
