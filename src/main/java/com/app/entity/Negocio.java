@@ -36,7 +36,7 @@ public class Negocio {
 	@NotNull
 	@OneToMany( cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "solicitud_negocio", joinColumns = @JoinColumn(name = "negocioId"),
-    inverseJoinColumns = @JoinColumn(name = "solicitudId"))
+    inverseJoinColumns = @JoinColumn(name = "solicitud_id"))
     private Set<Solicitud> solicitud;
 
 

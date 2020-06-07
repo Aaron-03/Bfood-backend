@@ -1,6 +1,10 @@
 package com.app.entity;
 
+import java.util.List;
+import java.util.Set;
+
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -20,14 +24,22 @@ import lombok.Setter;
 @Setter
 @Entity
 public class Producto {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "productoId")
     private int id;
     private String nombre;
     private float precio;
     private String img;
     private String categoria;
     private int stock;
-    private int id_ven;
+    private String status; 
+    
+    @ManyToOne
+    @JoinColumn(name = "idvendedor")
+    private Seller vendedor;
+//  @JoinTable(name = "vendedor", joinColumns = @JoinColumn(name = "productoId"),
+//  inverseJoinColumns = @JoinColumn(name = "vendedorId"))
 
 }
