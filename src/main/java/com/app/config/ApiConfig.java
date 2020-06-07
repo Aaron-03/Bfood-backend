@@ -17,6 +17,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import com.app.jwt.JwtEntryPoint;
 import com.app.jwt.JwtTokenFilter;
+import com.app.service.ProductoService;
 import com.app.service.SellerService;
 
 @Configuration

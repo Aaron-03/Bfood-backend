@@ -2,12 +2,14 @@ package com.app.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Service;
 
 import com.app.common.DaoImpl;
 import com.app.entity.Producto;
 import com.app.repository.ProductoRepository;
 import com.app.service.ProductoService;
 
+@Service
 public class Productolmpl extends DaoImpl<Producto, Integer> implements ProductoService {
 
 	@Autowired

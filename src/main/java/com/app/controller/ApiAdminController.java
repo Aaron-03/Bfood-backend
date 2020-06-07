@@ -182,6 +182,8 @@ public class ApiAdminController {
 
 	}
 	
+	// PRODUCTO
+	
 	@Autowired
 	private ProductoService productoservice;
 	
@@ -189,6 +191,7 @@ public class ApiAdminController {
 	public List<Producto> listarProducto() {
 		return productoservice.read();
 	}
+
 	
 	Producto getProducto(String param) {
 		Producto x = null;
@@ -202,13 +205,13 @@ public class ApiAdminController {
 
 		return x;
 	}
-	
-	@GetMapping(path = "/findproduct/{name}", produces = "application/json")
-	public ResponseEntity<?> encontrarproduco(@PathVariable("name") String name) {
+
+	@GetMapping(path = "/findproducto/{name}", produces = "application/json", consumes = "application/json")
+	public ResponseEntity<?> encontrarproducto(@PathVariable("name") String name) {
 
 		Producto producto = getProducto(name);
 		if (producto == null) {
-			return new ResponseEntity<>(":( producto no encontrado", HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(":( Producto no encontrado", HttpStatus.NOT_FOUND);
 		} else {
 
 			return ResponseEntity.ok(producto);
