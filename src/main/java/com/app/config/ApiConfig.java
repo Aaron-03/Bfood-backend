@@ -17,6 +17,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import com.app.jwt.JwtEntryPoint;
 import com.app.jwt.JwtTokenFilter;
+
 import com.app.service.SellerService;
 
 @Configuration
@@ -24,10 +25,10 @@ import com.app.service.SellerService;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class ApiConfig extends WebSecurityConfigurerAdapter {
 
-	@Bean
-	public SellerService sellerservice() {
-		return new SellerService();
-	}
+//	@Bean
+//	public SellerService sellerservice() {
+//		return new SellerService;
+//	}
 	
 	
 	// ================ all reference to login

@@ -24,12 +24,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.entity.Negocio;
+import com.app.entity.Producto;
 import com.app.entity.Seller;
 import com.app.entity.Usuario;
 import com.app.jwt.JwtAutentication;
 import com.app.jwt.JwtDto;
 import com.app.jwt.JwtProvider;
 import com.app.service.NegocioService;
+import com.app.service.ProductoService;
 import com.app.service.SellerService;
 import com.app.service.UserDetailsImpl;
 import com.app.service.UserDetailsServiceImpl;
@@ -53,7 +55,7 @@ public class ApiAdminController {
 	@PostMapping(path = "/register", consumes = "application/json", produces = "application/json")
 	public String registerSeller(@RequestBody Seller seller) {
 
-		sellerservice.registerSeller(seller);
+		sellerservice.save(seller);
 
 		return "Registro exitoso";
 	}
@@ -157,4 +159,29 @@ public class ApiAdminController {
 		return negocioService.read();
 	}
 
+	Negocio getNegocio(String param) {
+		Negocio x = null;
+		List<Negocio> lst = negocioService.read();
+		for (Negocio negocio : lst) {
+			if (negocio.getRuc().equals(param)) {
+				
+				return  negocio;
+			}
+		}
+
+		return x;
+	}
+
+	@GetMapping(path = "/findnegocio/{name}", produces = "application/json")
+	public ResponseEntity<?> encontrarnegocio(@PathVariable("name") String name) {
+
+		Negocio negocio = getNegocio(name);
+		if (negocio == null) {
+			return new ResponseEntity<>(":( negocio no encontrado", HttpStatus.NOT_FOUND);
+		} else {
+
+			return ResponseEntity.ok(negocio);
+		}
+
+	}
 }

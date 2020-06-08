@@ -20,6 +20,4 @@ public class NegocioImpl extends DaoImpl<Negocio, Integer> implements NegocioSer
 		return negocioRepository;
 	}
 
-	
-
 }

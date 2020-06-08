@@ -38,10 +38,5 @@ public class Negocio {
     @JoinTable(name = "solicitud_negocio", joinColumns = @JoinColumn(name = "negocioId"),
     inverseJoinColumns = @JoinColumn(name = "solicitud_id"))
     private Set<Solicitud> solicitud;
-
-
-
-
-	
 	
 }

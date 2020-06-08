@@ -21,5 +21,5 @@ public class DatosSunat {
 	private String fechInscripcion;
 	private String direccion;
 	
-	
+
 }
