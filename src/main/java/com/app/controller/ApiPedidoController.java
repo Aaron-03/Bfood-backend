@@ -37,7 +37,7 @@ public class ApiPedidoController {
 		
 		JSONObject res = new JSONObject();
 		
-		String message = "Producto añadido correctamente";
+		String message = "Pedido añadido correctamente";
 		
 		res.append("ok", true);
 		res.append("message", message);

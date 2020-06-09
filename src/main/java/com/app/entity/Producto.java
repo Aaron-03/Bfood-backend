@@ -36,7 +36,7 @@ public class Producto {
     private String img;
     private String categoria;
     private int stock;
-    private String status; 
+    private String status;
 
     @NotNull
     @ManyToOne(cascade = CascadeType.ALL)

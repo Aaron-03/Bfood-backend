@@ -76,7 +76,7 @@ public class ApiProductController {
     
     @PostMapping(path = "/get", consumes = "application/json", produces = "application/json")
 	public String getProduct(@Valid @RequestBody String productId) {
-    	
+
     	System.out.println(productId);
     	JSONObject jsonId = new JSONObject(productId.toString());
 
@@ -85,15 +85,34 @@ public class ApiProductController {
     	Producto p = productoService.get(id);
     	
     	p.setVendedor(null);
-    	
+
     	JSONObject json = new JSONObject(p);
 
 		return json.toString();
 	}
+    
+    @PostMapping(path = "/all", consumes = "application/json", produces = "application/json")
+	public String lstProducts() throws JsonProcessingException {
+
+    	List<Producto> products = productoService.read();
+    	
+    	for(Producto p : products) {
+    		p.setVendedor(null);
+    	}
+
+    	JSONObject response = new JSONObject();
+    	
+    	response.put("ok", true);
+    	response.put("products", products);
+//    	response.put("page", page);
+    	
+    	
+    	return response.toString();
+	}
 
 
     @PostMapping(path = "/list", consumes = "application/json", produces = "application/json")
-	public String lstProducts(@Valid @RequestBody String vendorId) throws JsonProcessingException {
+	public String lstProductsByVendor(@Valid @RequestBody String vendorId) throws JsonProcessingException {
     	
     	System.out.println(vendorId);
     	JSONObject jsonId = new JSONObject(vendorId);
