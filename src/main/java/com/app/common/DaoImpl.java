@@ -40,7 +40,8 @@ public abstract class DaoImpl<T, ID extends Serializable> implements Dao<T, ID> 
 		getDao().deleteById(id);
 
 	}
-
+	
+	
 	public abstract CrudRepository<T, ID> getDao();
 
 }
