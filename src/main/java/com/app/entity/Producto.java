@@ -9,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -38,7 +37,6 @@ public class Producto {
     private int stock;
     private String status;
 
-    @NotNull
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "idvendedor")
     private Seller vendedor;

@@ -1,12 +1,10 @@
 package com.app.controller;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.validation.Valid;
 
-import org.apache.tomcat.util.json.JSONParser;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +23,6 @@ import com.app.service.ProductoService;
 import com.app.service.SellerService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import io.jsonwebtoken.lang.Objects;
 
 
 @RestController
@@ -83,7 +79,7 @@ public class ApiProductController {
     	int id = (int) jsonId.get("id");
 
     	Producto p = productoService.get(id);
-    	
+
     	p.setVendedor(null);
 
     	JSONObject json = new JSONObject(p);
@@ -91,22 +87,27 @@ public class ApiProductController {
 		return json.toString();
 	}
     
-    @PostMapping(path = "/all", consumes = "application/json", produces = "application/json")
+    @GetMapping(path = "/all", consumes = "application/json", produces = "application/json")
 	public String lstProducts() throws JsonProcessingException {
+
+    	ObjectMapper mp = new ObjectMapper();
 
     	List<Producto> products = productoService.read();
     	
     	for(Producto p : products) {
     		p.setVendedor(null);
     	}
+ 
+    	String json = mp.writeValueAsString(products);
+    	
+    	JSONArray prods = new JSONArray(json);
 
     	JSONObject response = new JSONObject();
     	
     	response.put("ok", true);
-    	response.put("products", products);
+    	response.put("products", prods);
 //    	response.put("page", page);
-    	
-    	
+
     	return response.toString();
 	}
 
@@ -118,7 +119,7 @@ public class ApiProductController {
     	JSONObject jsonId = new JSONObject(vendorId);
 
     	int idvendedor = jsonId.getInt("id");
-    	
+
     	System.out.println("Vendedor: " + idvendedor);
     	
     	Seller seller = sellerService.get(idvendedor);
@@ -169,9 +170,7 @@ public class ApiProductController {
 
 			return ResponseEntity.ok(producto);
 		}
-
 	}
-
     
 
 	Producto getProductoByName(String param) {

@@ -24,14 +24,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.entity.Negocio;
-import com.app.entity.Producto;
 import com.app.entity.Seller;
 import com.app.entity.Usuario;
 import com.app.jwt.JwtAutentication;
 import com.app.jwt.JwtDto;
 import com.app.jwt.JwtProvider;
 import com.app.service.NegocioService;
-import com.app.service.ProductoService;
 import com.app.service.SellerService;
 import com.app.service.UserDetailsImpl;
 import com.app.service.UserDetailsServiceImpl;
