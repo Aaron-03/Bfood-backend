@@ -148,7 +148,7 @@ public class ApiAdminController {
 		System.out.println(negocio);
 
 		negocioService.save(negocio);
-		
+
 		return ":) bussines add success!";
 	}
 

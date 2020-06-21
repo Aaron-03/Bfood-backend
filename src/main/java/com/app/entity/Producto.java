@@ -33,7 +33,10 @@ public class Producto {
     private int estrellas;
     private float precio;
     private String img;
-    private String categoria;
+    //private String categoria;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="idCategoria", referencedColumnName="idCategoria")
+    private Categoria categoria;
     private int stock;
     private String status;
 

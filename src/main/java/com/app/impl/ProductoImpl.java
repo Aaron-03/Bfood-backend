@@ -24,5 +24,5 @@ public class ProductoImpl extends DaoImpl<Producto, Integer> implements Producto
 		// TODO Auto-generated method stub
 		return productoRepository;
 	}
-	
+
 }

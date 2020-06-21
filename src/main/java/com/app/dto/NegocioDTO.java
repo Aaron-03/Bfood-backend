@@ -3,6 +3,8 @@ package com.app.dto;
 
 
 
+import java.io.Serializable;
+
 import com.app.entity.Solicitud;
 
 import lombok.AllArgsConstructor;
@@ -14,7 +16,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class NegocioDTO{
+public class NegocioDTO implements Serializable {
 	private String ruc;
 	private String razon;
 	private String nombComercial;

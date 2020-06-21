@@ -10,5 +10,4 @@ public interface Dao<T,ID extends Serializable> {
 	T get(ID id);
 	List<T> read();
 	void delete(ID id);
-
 }
