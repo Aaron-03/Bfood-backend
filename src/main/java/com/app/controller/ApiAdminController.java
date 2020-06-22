@@ -182,4 +182,17 @@ public class ApiAdminController {
 		}
 
 	}
+	
+	@GetMapping(path = "/getnegocio/{id}", produces = "application/json")
+	public ResponseEntity<?> getNegocio(@PathVariable("id") int id) {
+
+		Negocio negocio = negocioService.get(id);
+		if (negocio == null) {
+			return new ResponseEntity<>(":( negocio no encontrado", HttpStatus.NOT_FOUND);
+		} else {
+
+			return ResponseEntity.ok(negocio);
+		}
+
+	}
 }

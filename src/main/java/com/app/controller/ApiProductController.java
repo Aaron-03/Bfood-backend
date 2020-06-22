@@ -93,7 +93,7 @@ public class ApiProductController {
 	}
 
     
-    @GetMapping(path = "/all", consumes = "application/json", produces = "application/json")
+    @GetMapping(path = "/all", produces = "application/json")
 	public String lstProducts() throws JsonProcessingException {
 		ObjectMapper mp = new ObjectMapper();
 

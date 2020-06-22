@@ -1,0 +1,84 @@
+package com.app.util;
+
+import javax.validation.constraints.NotNull;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.URI;
+import java.util.Map;
+
+public class HttpConnection {
+    private static final String USER_AGENT = "Mozilla/5.0";
+    private static final int CONNECTION_TIMEOUT = 10000;
+    private static final int READ_TIMEOUT = 10000;
+    private HttpURLConnection connection;
+
+    protected String getRequest(String method, String baseUri, Map<String, String> parameters) throws Exception {
+        URI uri = new URI(baseUri);
+        uri = setParameters(uri, parameters);
+
+      
+        connection = (HttpURLConnection) uri.toURL().openConnection();
+     
+        connection.setRequestMethod(method);
+       
+        connection.setRequestProperty("User-Agent", USER_AGENT);
+        connection.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
+        connection.setRequestProperty("Content-Type", "application/json");
+    
+        connection.setConnectTimeout(CONNECTION_TIMEOUT);
+        connection.setReadTimeout(READ_TIMEOUT);
+
+       
+        String result = connection.getResponseCode() == 200 ? readFromConnection() : "";
+
+        
+        connection.disconnect();
+
+        return result;
+    }
+
+    @NotNull
+    private String readFromConnection() throws Exception {
+        InputStreamReader inputStream = new InputStreamReader(connection.getInputStream());
+        StringBuilder response = new StringBuilder();
+
+        try (BufferedReader reader = new BufferedReader(inputStream)) {
+            String output;
+
+            while ((output = reader.readLine()) != null)
+                response.append(output);
+        } catch (Exception exc) {
+            exc.printStackTrace();
+        }
+
+        return response.toString();
+    }
+
+    private URI setParameters(@NotNull URI uri, @NotNull Map<String, String> parameters) throws Exception {
+        return new URI(
+                uri.getScheme(),
+                uri.getAuthority(),
+                uri.getPath(),
+                getParametersString(parameters),
+                null);
+    }
+
+    private String getParametersString(@NotNull Map<String, String> params) throws UnsupportedEncodingException {
+        StringBuilder result = new StringBuilder();
+
+        for (Map.Entry<String, String> entry : params.entrySet()) {
+            result.append(entry.getKey());
+            result.append("=");
+            result.append(entry.getValue());
+            result.append("&");
+        }
+
+        String resultString = result.toString();
+
+        return resultString.length() > 0
+                ? resultString.substring(0, resultString.length() - 1)
+                : resultString;
+    }
+}

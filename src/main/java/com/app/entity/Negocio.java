@@ -1,5 +1,7 @@
 package com.app.entity;
 
+import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -22,7 +24,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-public class Negocio {
+public class Negocio implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "negocioId")
@@ -39,4 +43,5 @@ public class Negocio {
     inverseJoinColumns = @JoinColumn(name = "solicitud_id"))
     private Set<Solicitud> solicitud;
 	
+
 }
