@@ -22,12 +22,12 @@ public class PedidoImpl extends DaoImpl<Pedido, Integer> implements PedidoServic
 		return pedidoRepository;
 	}
 
-	@Override
+	/*@Override
 	public Pedido registrarPedido(Pedido p) {
 
 		p.getDetalles().forEach(det->det.setPedido(p));
 		
 		return pedidoRepository.save(p);
-	}
+	}*/
 
 }

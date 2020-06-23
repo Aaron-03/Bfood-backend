@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @NoArgsConstructor
-@AllArgsConstructor
+//@AllArgsConstructor
 @Getter
 @Setter
 @Entity
@@ -39,12 +39,21 @@ public class Pedido {
 	private Consumidor consumidor;
 	private double total;
 	private String status;
-	@ManyToOne
-	@JoinColumn(name = "id_producto",nullable = false,foreignKey =@ForeignKey(name="pedido_producto_fk"))
-	private Producto producto;
 	@OneToMany(mappedBy = "pedido",cascade = {CascadeType.ALL},orphanRemoval = true)
 	private List<DetallePedido> detalles;
+	
+	public Pedido(Date fecha, Consumidor consumidor, double total, String status, List<DetallePedido> detalles) {
+		super();
+		this.fecha = fecha;
+		this.consumidor = consumidor;
+		this.total = total;
+		this.status = status;
+		this.detalles = detalles;
+	}
+	
+	
 }
+
 
 /*create table pedidos(
 	no_pedido varchar(10),

@@ -34,6 +34,7 @@ public class Sucursal implements Serializable{
 	private double lat;
 	private double lng;
 	private int estado;
+	
 	public Sucursal(Negocio negocio, String direccion, double lat, double lng, int estado) {
 		super();
 		this.negocio = negocio;

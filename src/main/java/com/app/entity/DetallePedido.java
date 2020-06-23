@@ -3,6 +3,7 @@ package com.app.entity;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,7 +30,9 @@ public class DetallePedido {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int iddetalle;
-	//private int idproducto;
+	@ManyToOne
+	@JoinColumn(name = "id_producto",nullable = false,foreignKey =@ForeignKey(name="pedido_producto_fk"))
+	private Producto producto;
 	//private int idfactura;
 	private int cantidad;
 	
