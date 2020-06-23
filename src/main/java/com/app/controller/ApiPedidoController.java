@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,14 +18,14 @@ import com.app.service.PedidoService;
 
 
 @RestController
-@RequestMapping("/bfood/pedido/")
+@RequestMapping("/bfood/pedido")
 public class ApiPedidoController {
 
 	
 	@Autowired
 	private PedidoService pedidoService;
 	
-	@PostMapping("/add")
+	/*@PostMapping("/add")
 	public String addPedido(@Valid @RequestBody Pedido p) {
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -36,6 +37,26 @@ public class ApiPedidoController {
 		pedidoService.save(p);
 		
 		JSONObject res = new JSONObject();
+		
+		String message = "Pedido añadido correctamente";
+		
+		res.append("ok", true);
+		res.append("message", message);
+		
+		return res.toString();
+	}*/
+	
+	@PostMapping
+	public String Registrar(@Valid @RequestBody Pedido p) throws Exception{
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		Date fecha = new Date();
+		
+		p.setFecha(fecha);
+		
+	    pedidoService.registrarPedido(p);
+	    
+	    JSONObject res = new JSONObject();
 		
 		String message = "Pedido añadido correctamente";
 		

@@ -2,11 +2,11 @@ package com.app.entity;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,7 +14,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -35,10 +34,15 @@ public class Pedido {
 	private int idpedido;
 	private Date fecha;
 	private String descripcion;
-	private int idcliente;
+	@ManyToOne
+	@JoinColumn(name = "id_consumidor",nullable = false,foreignKey = @ForeignKey(name="pedido_consumidor_fk"))
+	private Consumidor consumidor;
 	private double total;
 	private String status;
-	@OneToMany(mappedBy = "pedido")
+	@ManyToOne
+	@JoinColumn(name = "id_producto",nullable = false,foreignKey =@ForeignKey(name="pedido_producto_fk"))
+	private Producto producto;
+	@OneToMany(mappedBy = "pedido",cascade = {CascadeType.ALL},orphanRemoval = true)
 	private List<DetallePedido> detalles;
 }
 
