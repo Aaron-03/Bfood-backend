@@ -39,7 +39,7 @@ public class ApiPedidoController {
 	
 	@GetMapping(path = "/list",produces = "application/jason")
 	public String lstPedidos() throws JsonProcessingException{
-		
+		 
 		return null;
 		 
 	}
