@@ -5,7 +5,6 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 
 import com.app.common.DaoImpl;
-import com.app.entity.DetallePedido;
 import com.app.entity.Pedido;
 import com.app.repository.PedidoRepository;
 import com.app.service.PedidoService;
