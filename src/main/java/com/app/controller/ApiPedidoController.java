@@ -22,6 +22,7 @@ import com.app.entity.Producto;
 import com.app.entity.Seller;
 import com.app.entity.Sucursal;
 import com.app.service.ConsumidorService;
+import com.app.service.DetallePedidoService;
 import com.app.service.PedidoService;
 import com.app.service.ProductoService;
 import com.app.service.SellerService;
@@ -54,7 +55,7 @@ public class ApiPedidoController {
 	private  ProductoService productoService;
 	
 	@Autowired
-	private  DetallePedido detallePedido;
+	private  DetallePedidoService detallePedido;
 
 	private List<PedidoResult> pedidoResults;
 	
@@ -70,9 +71,9 @@ public class ApiPedidoController {
 		
 		List<DetallePedido> detallePedidos= new ArrayList<DetallePedido>();
 		
-		//detallePedidos= DetallePedidoService.read();
+		detallePedidos= detallePedido.read();
 		
-		pedidoResults = null;
+		pedidoResults = new ArrayList<>();
 		
 		for (Pedido pedido : lst) {
 		
