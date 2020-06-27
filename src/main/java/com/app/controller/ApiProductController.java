@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import com.app.entity.Categoria;
 import com.app.entity.Producto;
 import com.app.entity.Seller;
 import com.app.service.ProductoService;
@@ -39,17 +39,32 @@ public class ApiProductController {
 	private SellerService sellerService;
 
 	@PostMapping(path = "/add", consumes = "application/json", produces = "application/json")
-	public String addProduct(@Valid @RequestBody Producto producto) {
-
-		System.out.println("Entró al agregar producto");
-		Seller seller = sellerService.get(producto.getVendedor().getId());
-
-		producto.setVendedor(seller);
+	public String addProduct(@Valid @RequestBody String producto) {
 		
-		productoService.save(producto);
+		JSONObject prod = new JSONObject(producto);
 
-		producto.setVendedor(null);
-		producto.setCategoria(null);
+		System.out.println(prod.toString());
+		System.out.println("Entró al agregar producto");
+		
+		Seller seller = sellerService.get(1);
+
+		System.out.println(seller);
+
+		Producto p = new Producto();
+		p.setNombre(prod.getString("nombre"));
+		p.setDescripcion(prod.getString("descripcion"));
+		p.setPrecio(prod.getFloat("precio"));
+		p.setCategoria(null);
+		p.setImg(prod.getString("img"));
+		p.setStock(prod.getInt("stock"));
+		p.setStatus("A");
+
+		p.setVendedor(seller);
+		
+		productoService.save(p);
+
+		p.setVendedor(null);
+		p.setCategoria(null);
 		JSONObject response = new JSONObject();
 
 		response.put("ok", true);
@@ -117,34 +132,26 @@ public class ApiProductController {
 	}
 
 	@PostMapping(path = "/list", consumes = "application/json", produces = "application/json")
-	public String lstProductsByVendor(@Valid @RequestBody String vendorId) throws JsonProcessingException {
+	public ResponseEntity<?> lstProductsByVendor(@RequestBody String vendorId) throws JsonProcessingException {
+		
+		JSONObject response = new JSONObject(vendorId);
 
-		JSONObject jsonId = new JSONObject(vendorId);
-
-    	int idvendedor = jsonId.getInt("id");
-
-    	System.out.println("Vendedor: " + idvendedor);
+    	int idvendedor = response.getInt("vendorId");
     	
     	Seller seller = sellerService.get(idvendedor);
+    		
+    	if(seller == null) {
+    		return new ResponseEntity<>(HttpStatus.BAD_GATEWAY);	
+    	}
     	
     	List<Producto> productos = (List<Producto>) seller.getProductos();
-    	
-    	ArrayList<Producto> products = new ArrayList<Producto>();
-
-		System.out.println(vendorId);
-		
 
 		for (Producto p : productos) {
 			p.setVendedor(null);
-			products.add(p);
+			p.setCategoria(null);
 		}
 
-		JSONObject json = new JSONObject();
-
-		json.put("ok", true);
-		json.put("data", products);
-
-		return json.toString();
+		return new ResponseEntity<>(productos, HttpStatus.OK);
 	}
 
 	@DeleteMapping(path = "/dlt", consumes = "application/json", produces = "application/json")

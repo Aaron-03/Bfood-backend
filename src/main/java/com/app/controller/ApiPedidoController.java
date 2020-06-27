@@ -51,10 +51,7 @@ public class ApiPedidoController {
 	private SellerService sellerService;
 	
 	@Autowired 
-	private  ProductoService productoService;
-	
-	@Autowired
-	private  DetallePedido detallePedido;
+	private ProductoService productoService;
 
 	private List<PedidoResult> pedidoResults;
 	
