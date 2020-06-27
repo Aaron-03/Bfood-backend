@@ -2,6 +2,7 @@ package com.app.controller;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -81,18 +82,27 @@ public class ApiPedidoController {
 		}
 		
 		return pedidoResults;
-		 
+	}
+	
+	@GetMapping(path = "/listV", consumes = "application/json", produces = "application/json")
+	public List<Pedido> lstPedidosByVendor(String token) {
+		
+		return pedidoService.read();
 	}
 
-	@PostMapping(path = "/add/{id}", consumes = "application/json", produces = "application/json")
-	public String Registrar(@RequestBody Integer id, Pedido pedido) throws Exception {
 
-		Consumidor nuevoConsumidor = conServ.get(id);
+	@PostMapping(path = "/add", consumes = "application/json", produces = "application/json")
+	public String Registrar(@RequestBody Pedido pedido) throws Exception {
+
+		Consumidor nuevoConsumidor = conServ.get(1);
+		
+		Date date = new Date();
 
 		Pedido p = new Pedido();
 
 		p.setConsumidor(nuevoConsumidor);
-		p.setFecha(pedido.getFecha());
+		p.setDescripcion(pedido.getDescripcion());
+		p.setFecha(date);
 		p.setDetalles(pedido.getDetalles());
 		p.setTotal(pedido.getTotal());
 		p.setStatus(pedido.getStatus());

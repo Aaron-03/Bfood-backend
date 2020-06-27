@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -74,11 +75,24 @@ public class ApiProductController {
 	}
 
 	@PostMapping(path = "/edit", consumes = "application/json", produces = "application/json")
-	public String updProduct(@Valid @RequestBody Producto producto) {
+	public String updProduct(@Valid @RequestBody String producto) {
+		
+		JSONObject prod = new JSONObject(producto);
 
-		Producto p = productoService.get(producto.getId());
-		p = producto;
-		productoService.save(p);
+		Producto p = new Producto();
+		p.setId(prod.getInt("id"));
+		p.setNombre(prod.getString("nombre"));
+		p.setDescripcion(prod.getString("descripcion"));
+		p.setPrecio(prod.getFloat("precio"));
+		p.setCategoria(null);
+		p.setImg(prod.getString("img"));
+		p.setStock(prod.getInt("stock"));
+		p.setStatus("A");
+		
+		Producto prd = productoService.get(prod.getInt("id"));
+		p.setVendedor(prd.getVendedor());
+		prd = p;
+		productoService.save(prd);
 
 		JSONObject json = new JSONObject();
 
@@ -154,12 +168,13 @@ public class ApiProductController {
 		return new ResponseEntity<>(productos, HttpStatus.OK);
 	}
 
-	@DeleteMapping(path = "/dlt", consumes = "application/json", produces = "application/json")
+	@PutMapping(path = "/dlt", consumes = "application/json", produces = "application/json")
 	public String dltProduct(@Valid @RequestBody String productId) {
 
 		System.out.println(productId);
-		JSONObject json = new JSONObject(productId.toString());
-		int id = (int) json.get("id");
+		JSONObject json = new JSONObject(productId);
+
+		int id = json.getInt("id");
 		Producto p = productoService.get(id);
 		p.setStatus("D");
 		productoService.save(p);

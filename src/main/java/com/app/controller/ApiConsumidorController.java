@@ -78,11 +78,11 @@ public class ApiConsumidorController {
 
     @GetMapping(path = "/list", produces = "application/json")
 	public String lstConsumidores() throws JsonProcessingException {
-    	
+
     	List<Consumidor> customers = consumidorService.read();
-    	
+
     	JSONArray jrr = getObjectsJSON(customers);
-    	
+
     	JSONObject json = new JSONObject();
     	json.put("ok", "true");
     	json.put("message", "Registrado Correctamente");
@@ -93,9 +93,9 @@ public class ApiConsumidorController {
 
     @DeleteMapping(path = "/dlt", consumes = "application/x-www-form-urlencoded", produces = "application/json")
 	public String dltConsumidor(String idconsumidor) {
-    	
+
     	System.out.println(idconsumidor);
-    	
+
     	JSONObject json = new JSONObject();
 
     	int id = Integer.parseInt(idconsumidor);
@@ -124,7 +124,7 @@ public class ApiConsumidorController {
     	int id = Integer.parseInt(idconsumidor);
     	
     	Consumidor c = consumidorService.get(id);
-    	
+
     	if(c == null) {
     		json.put("ok", false);
         	json.put("message", "Consumidor no existe");
