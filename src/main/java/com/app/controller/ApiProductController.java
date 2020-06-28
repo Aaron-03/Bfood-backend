@@ -130,6 +130,7 @@ public class ApiProductController {
     	
     	for(Producto p : products) {
     		p.setVendedor(null);
+    		p.setCategoria(null);
     	}
  
     	String json = mp.writeValueAsString(products);

@@ -39,7 +39,7 @@ import com.app.util.GobRestUtil;
 
 
 @RestController
-@RequestMapping("/bfood")
+@RequestMapping("/bfood/vendor")
 public class ApiAdminController {
 
 	@Autowired
@@ -52,6 +52,8 @@ public class ApiAdminController {
 
 	@PostMapping(path = "/register", consumes = "application/json", produces = "application/json")
 	public String registerSeller(@RequestBody Seller seller) {
+		
+		
 
 		sellerservice.save(seller);
 

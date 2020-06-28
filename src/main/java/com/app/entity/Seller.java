@@ -7,7 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -28,12 +30,15 @@ public class Seller {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idvendedor")
 	private int id;
-	private int user_id;
 	private String nom_corto, razon_ven, ruc_ven, direccion, tele_ven, pag_web, contacto, logo, email;
 
 	//bi-directional many-to-one association to Producto
 	@OneToMany(mappedBy = "vendedor")
 	private List<Producto> productos;
+
+//	@OneToOne
+//	@JoinColumn(name = "user_id")
+//	private Usuario user;
 
 
 //	@ManyToMany(mappedBy="vendedor")

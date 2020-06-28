@@ -7,6 +7,13 @@ import javax.validation.Valid;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,7 +23,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.entity.Consumidor;
-
+import com.app.jwt.JwtDto;
+import com.app.jwt.JwtProvider;
 import com.app.service.ConsumidorService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -39,6 +47,19 @@ public class ApiConsumidorController {
 	@Autowired
 	private ConsumidorService consumidorService;
 	
+	@Autowired
+	private AuthenticationManager authenticationManager;
+	
+	@Autowired
+	private JwtProvider jwtProvider;
+	
+	
+	@PostMapping(path = "/login-consumidor", consumes = "application/x-www-form-urlencoded", produces = "application/json")
+	public String loginConsumidor(@RequestBody String customer) {
+		
+		
+		return "";
+	}
 
     @PostMapping(path = "/add", consumes = "application/json", produces = "application/json")
 	public String addConsumidor(@Valid @RequestBody Consumidor consumidor) {
