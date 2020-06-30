@@ -44,7 +44,7 @@ import com.app.util.GobRestUtil;
 import com.app.util.Mensaje;
 
 @RestController
-@RequestMapping("/bfood")
+@RequestMapping("/bfood/users")
 public class ApiAdminController {
 
 	@Autowired
@@ -100,7 +100,6 @@ public class ApiAdminController {
 			seller.setWeb(dto.getWeb());
 			seller.setNomContacto(dto.getNomContacto());
 			seller.setLogo(dto.getLogo());
-			seller.setEmail(dto.getEmail());
 
 			seller.setSolicitud(dto.getSolicitud());
 

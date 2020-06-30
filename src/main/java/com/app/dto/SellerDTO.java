@@ -27,7 +27,6 @@ public class SellerDTO implements Serializable {
 	private String web;
 	private String nomContacto;
 	private String logo;
-	private String email;
 
 	private Set<Solicitud> solicitud;
 

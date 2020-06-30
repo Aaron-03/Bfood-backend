@@ -35,7 +35,6 @@ public class Sucursal implements Serializable{
 	private double lat;
 	private double lng;
 	private int estado;
-	
-	
+
 	
 }
