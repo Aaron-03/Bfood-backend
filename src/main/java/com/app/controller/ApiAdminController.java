@@ -32,8 +32,10 @@ import com.app.dto.LoginVendedor;
 import com.app.dto.SellerJson;
 import com.app.dto.SellerDTO;
 import com.app.entity.Consumidor;
+import com.app.entity.Rol;
 import com.app.entity.Seller;
 import com.app.entity.Usuario;
+import com.app.enums.RolNombre;
 import com.app.jwts.JwtDto;
 import com.app.jwts.JwtProvider;
 import com.app.service.ConsumidorService;
@@ -102,14 +104,14 @@ public class ApiAdminController {
 			seller.setLogo(dto.getLogo());
 
 			seller.setSolicitud(dto.getSolicitud());
-
+			
+			
 			Usuario usuario = new Usuario();
 			usuario.setUsername(dto.getUsuario().getUsername());
 			usuario.setEmail(dto.getUsuario().getEmail());
 			usuario.setPassword(passEncryptado);
 			usuario.setEstado(dto.getUsuario().getEstado());
 			usuario.setRoles(dto.getUsuario().getRoles());
-
 			seller.setUsuario(usuario);
 
 			sellerservice.save(seller);

@@ -43,7 +43,7 @@ public class ApiProductController {
 	// start method register product only by seller
 	// ========================================================================================
 
-	@PreAuthorize("hasRole('Vendedor')")
+	//@PreAuthorize("hasRole('Vendedor')")
 	@PostMapping("/registrar-producto")
 	public ResponseEntity<?> registrarProducto(@Valid @RequestBody ProductoDto dto) {
 		try {
