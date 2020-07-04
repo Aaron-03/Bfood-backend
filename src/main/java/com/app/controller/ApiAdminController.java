@@ -104,8 +104,7 @@ public class ApiAdminController {
 			seller.setLogo(dto.getLogo());
 
 			seller.setSolicitud(dto.getSolicitud());
-			
-			
+
 			Usuario usuario = new Usuario();
 			usuario.setUsername(dto.getUsuario().getUsername());
 			usuario.setEmail(dto.getUsuario().getEmail());
@@ -144,7 +143,7 @@ public class ApiAdminController {
 		try {
 			if (StringUtils.isBlank(dto.getDni()))
 				return new ResponseEntity<>(new Mensaje(false, "ingrese dni"), HttpStatus.BAD_REQUEST);
-			
+
 			if (valExistdni(dto.getDni()))
 				return new ResponseEntity<>(new Mensaje(false, "el dni ya fue registrado"), HttpStatus.BAD_REQUEST);
 
@@ -227,7 +226,6 @@ public class ApiAdminController {
 	// ========================================================================================
 	@PostMapping("/iniciar-sesion")
 	public ResponseEntity<?> sesionCliente(@Valid @RequestBody LoginConsumidor usu) {
-		
 		Authentication authentication = authenticationManager
 				.authenticate(new UsernamePasswordAuthenticationToken(usu.getUsername(), usu.getPassword()));
 		SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -256,21 +254,21 @@ public class ApiAdminController {
 
 	@Autowired
 	private RestTemplate restTemplate;
-	
+
 	// validate
 	// ========================================================================================
 	@GetMapping("/sunatopcone/{ruc}")
 	public ResponseEntity<?> validaRuc(@PathVariable("ruc") String ruc) {
 		GobRestUtil gobRestUtil = new GobRestUtil();
 		DatosSunat datosSunat = gobRestUtil.consultarSunat(ruc);
-		
+
 		List<Seller> lst = sellerservice.read();
 		for (Seller seller : lst) {
 			if (seller.getRuc().equals(ruc)) {
 				return new ResponseEntity<>(new Mensaje(false, "Ruc ya esta registrado"), HttpStatus.NOT_FOUND);
 			}
 		}
-		
+
 		if (datosSunat == null) {
 			return new ResponseEntity<>(new Mensaje(false, ":( Ruc no válido"), HttpStatus.NOT_FOUND);
 		} else {
@@ -278,13 +276,13 @@ public class ApiAdminController {
 			return ResponseEntity.ok(datosSunat);
 		}
 	}
-	
+
 	@GetMapping(path = "/sunatopctwo/{ruc}", produces = "application/json")
 	public ResponseEntity<?> consultarRuc(@PathVariable("ruc") String ruc) {
 		ResponseEntity<SellerJson> response = restTemplate.getForEntity("https://api.sunat.cloud/ruc/" + ruc,
 				SellerJson.class);
 		SellerJson sellerJson = response.getBody();
-		
+
 		List<Seller> lst = sellerservice.read();
 		for (Seller seller : lst) {
 			if (seller.getRuc().equals(ruc)) {
@@ -293,7 +291,7 @@ public class ApiAdminController {
 		}
 		if (sellerJson == null) {
 			return new ResponseEntity<>(new Mensaje(false, ":( Ruc no válido"), HttpStatus.NOT_FOUND);
-			
+
 		} else {
 			return ResponseEntity.ok(sellerJson);
 		}
