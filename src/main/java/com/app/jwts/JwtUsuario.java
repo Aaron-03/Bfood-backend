@@ -1,25 +1,25 @@
-package com.app.entity;
+package com.app.jwts;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.app.entity.Usuario;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.persistence.Id;
-
-public class UsuarioPrincipal implements UserDetails {
+public class JwtUsuario implements UserDetails {
     
 	private static final long serialVersionUID = 1L;
-	private int id;
+	
     private String username;
     private String email;
     private String password;
     private Collection<? extends GrantedAuthority> authorities;
 
-    public UsuarioPrincipal(String username, String email, String password, Collection<? extends GrantedAuthority> authorities) {
+    public JwtUsuario(String username, String email, String password, Collection<? extends GrantedAuthority> authorities) {
        
         this.username = username;
         this.email = email;
@@ -27,32 +27,14 @@ public class UsuarioPrincipal implements UserDetails {
         this.authorities = authorities;
     }
 
-    public static UsuarioPrincipal build(Usuario usuario){
+    public static JwtUsuario build(Usuario usuario){
         List<GrantedAuthority> authorities =
                 usuario.getRoles().stream().map(rol -> new SimpleGrantedAuthority(rol
                 .getRolNombre().name())).collect(Collectors.toList());
-        return new UsuarioPrincipal(usuario.getUsername(), usuario.getEmail(), usuario.getPassword(), authorities);
+        return new JwtUsuario(usuario.getUsername(), usuario.getEmail(), usuario.getPassword(), authorities);
     }
-    
-    public UsuarioPrincipal(int id, String username, String email, String password,
-			Collection<? extends GrantedAuthority> authorities) {
-		super();
-		this.id = id;
-		this.username = username;
-		this.email = email;
-		this.password = password;
-		this.authorities = authorities;
-	}
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	@Override
+    @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;
     }

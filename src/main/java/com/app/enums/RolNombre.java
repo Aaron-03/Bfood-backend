@@ -1,5 +1,5 @@
 package com.app.enums;
 
 public enum RolNombre {
-	 Admin, Vendedor,Consumidor
+	ROLE_ADMIN,ROLE_VENDEDOR,ROLE_CONSUMIDOR
 }

@@ -43,11 +43,10 @@ public class ApiProductController {
 	// start method register product only by seller
 	// ========================================================================================
 
-	//@PreAuthorize("hasRole('Vendedor')")
+	@PreAuthorize("hasRole('ROLE_VENDEDOR')")
 	@PostMapping("/registrar-producto")
 	public ResponseEntity<?> registrarProducto(@Valid @RequestBody ProductoDto dto) {
 		try {
-
 			if (StringUtils.isBlank(dto.getNombre()))
 				return new ResponseEntity<>(new Mensaje(false, "Ingrese nombre de producto"), HttpStatus.BAD_REQUEST);
 			if (dto.getPrecio() == null || dto.getPrecio() < 0)
