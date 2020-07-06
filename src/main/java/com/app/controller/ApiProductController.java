@@ -46,7 +46,7 @@ public class ApiProductController {
 	// start method register product only by seller
 	// ========================================================================================
 
-	@PreAuthorize("hasRole('ROLE_VENDEDOR')")
+	// @PreAuthorize("hasRole('ROLE_VENDEDOR')")
 	@PostMapping(path = "/registrar-producto", consumes = "application/json", produces = "application/json")
 	public ResponseEntity<?> registrarProducto(@Valid @RequestBody ProductoDto dto) {
 		try {
@@ -95,7 +95,9 @@ public class ApiProductController {
 		}
 		return false;
 	}
+
 	
+	@PreAuthorize("hasRole('ROLE_VENDEDOR')")
 	@PutMapping(path = "/actualizar-producto", consumes = "application/json", produces = "application/json")
 	public ResponseEntity<?> updateProducto(@Valid @RequestBody Producto product) {
 		try {
@@ -132,6 +134,8 @@ public class ApiProductController {
 		}
 	}
 	
+	
+	@PreAuthorize("hasRole('ROLE_VENDEDOR')")
 	@PutMapping(path = "/dlt", consumes = "application/json", produces = "application/json")
 	public ResponseEntity<?> deleteProduct(@RequestBody String productId) {
 		

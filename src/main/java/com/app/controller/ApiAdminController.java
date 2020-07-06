@@ -265,6 +265,34 @@ public class ApiAdminController {
 		return new ResponseEntity<>(jwtDto, HttpStatus.OK);
 
 	}
+	
+//	@GetMapping(path = "/authVendor", produces = "application/json")
+//	public ResponseEntity<?> getVendorByToken(HttpServletRequest request) {
+//		
+//		try {
+//			
+//			String tokenHeader = request.getHeader("Authorization");
+//			String username = jwtProvider.getNombreUsuarioFromToken(tokenHeader);
+//			
+//			List<Seller> list = sellerservice.read();
+//			Seller seller = null;
+//
+//			for(Seller s : list) {
+//				if(s.getUsuario().equals(username)) {
+//					seller = new Seller();
+//					seller = s;
+//					break;
+//				}
+//			}
+//			
+//			return new ResponseEntity<>(seller, HttpStatus.OK);
+//			
+//		} catch(Exception ex) {
+//			ex.printStackTrace();
+//			
+//			return new ResponseEntity<>("No funka", HttpStatus.BAD_GATEWAY);
+//		}
+//	}
 
 	@Autowired
 	private RestTemplate restTemplate;
