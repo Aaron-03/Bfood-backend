@@ -1,7 +1,5 @@
 package com.app.entity;
 
-
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -15,12 +13,13 @@ import com.app.enums.SolicitudEstado;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 
 @Entity
-public class Solicitud{
+public class Solicitud {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

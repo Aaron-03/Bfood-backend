@@ -13,28 +13,26 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
 @NoArgsConstructor
 @Getter
 @Setter
 @Entity
-public class Sucursal implements Serializable{
-	
+public class Sucursal implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id; 
-	
+	private int id;
+
 	@ManyToOne
 	@JoinColumn(name = "vendedorId")
 	private Seller seller;
-	
+
 	private String nombre;
 	private String direccion;
 	private double lat;
 	private double lng;
 	private int estado;
 
-	
 }

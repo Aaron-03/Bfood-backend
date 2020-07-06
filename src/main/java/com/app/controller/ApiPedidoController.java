@@ -46,44 +46,42 @@ public class ApiPedidoController {
 
 	@Autowired
 	private ConsumidorService conServ;
-	
-	@Autowired 
+
+	@Autowired
 	private SellerService sellerService;
-	
-	@Autowired 
-	private  ProductoService productoService;
-	
-	
+
+	@Autowired
+	private ProductoService productoService;
 
 	private List<PedidoResult> pedidoResults;
-	
+
 	@GetMapping(path = "/list", produces = "application/json")
-	public List<PedidoResult> lstPedidos(){
-		int param=1;
-		Seller seller= sellerService.get(1);
-		//Producto producto = productoService.get(1);
-		Consumidor consumidor=conServ.get(1);
-		
+	public List<PedidoResult> lstPedidos() {
+		int param = 1;
+		Seller seller = sellerService.get(1);
+		// Producto producto = productoService.get(1);
+		Consumidor consumidor = conServ.get(1);
+
 		List<Pedido> lst = pedidoService.read().stream().filter(x -> x.getConsumidor() == consumidor)
 				.collect(Collectors.toList());
-		
-		List<DetallePedido> detallePedidos= new ArrayList<DetallePedido>();
-		
-		//detallePedidos= DetallePedidoService.read();
-		
+
+		List<DetallePedido> detallePedidos = new ArrayList<DetallePedido>();
+
+		// detallePedidos= DetallePedidoService.read();
+
 		pedidoResults = null;
-		
+
 		for (Pedido pedido : lst) {
-		
+
 			for (DetallePedido detallePedido : detallePedidos) {
-				if(seller.getId()==param) {
-					pedidoResults.add(new PedidoResult(seller, pedido,detallePedido));
+				if (seller.getId() == param) {
+					pedidoResults.add(new PedidoResult(seller, pedido, detallePedido));
 				}
 			}
 		}
-		
+
 		return pedidoResults;
-		 
+
 	}
 
 	@PostMapping(path = "/add/{id}", consumes = "application/json", produces = "application/json")
@@ -111,8 +109,5 @@ public class ApiPedidoController {
 
 		return res.toString();
 	}
-	
-	
-	
 
 }

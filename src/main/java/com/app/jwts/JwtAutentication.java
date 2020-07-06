@@ -12,11 +12,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 
-public class JwtAutentication implements Serializable{
+public class JwtAutentication implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private String username;
-    private String password;
-    
+	private String password;
+
 }

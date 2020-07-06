@@ -9,10 +9,9 @@ import com.app.entity.Consumidor;
 import com.app.repository.ConsumidorRepository;
 import com.app.service.ConsumidorService;
 
-
 @Service
 public class ConsumidorImpl extends DaoImpl<Consumidor, Integer> implements ConsumidorService {
-	
+
 	@Autowired
 	private ConsumidorRepository consumidorRepository;
 

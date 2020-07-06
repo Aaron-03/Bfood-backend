@@ -8,8 +8,6 @@ import java.util.Optional;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 
-
-
 @Service
 public abstract class DaoImpl<T, ID extends Serializable> implements Dao<T, ID> {
 
@@ -29,7 +27,7 @@ public abstract class DaoImpl<T, ID extends Serializable> implements Dao<T, ID> 
 
 	@Override
 	public List<T> read() {
-		//return Lists.newArrayList(getDao().findAll());
+		// return Lists.newArrayList(getDao().findAll());
 		List<T> lst = new ArrayList<>();
 		getDao().findAll().forEach(obj -> lst.add(obj));
 		return lst;
@@ -40,8 +38,7 @@ public abstract class DaoImpl<T, ID extends Serializable> implements Dao<T, ID> 
 		getDao().deleteById(id);
 
 	}
-	
-	
+
 	public abstract CrudRepository<T, ID> getDao();
 
 }

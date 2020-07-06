@@ -9,76 +9,66 @@ import java.net.URI;
 import java.util.Map;
 
 public class HttpConnection {
-    private static final String USER_AGENT = "Mozilla/5.0";
-    private static final int CONNECTION_TIMEOUT = 10000;
-    private static final int READ_TIMEOUT = 10000;
-    private HttpURLConnection connection;
+	private static final String USER_AGENT = "Mozilla/5.0";
+	private static final int CONNECTION_TIMEOUT = 10000;
+	private static final int READ_TIMEOUT = 10000;
+	private HttpURLConnection connection;
 
-    protected String getRequest(String method, String baseUri, Map<String, String> parameters) throws Exception {
-        URI uri = new URI(baseUri);
-        uri = setParameters(uri, parameters);
+	protected String getRequest(String method, String baseUri, Map<String, String> parameters) throws Exception {
+		URI uri = new URI(baseUri);
+		uri = setParameters(uri, parameters);
 
-      
-        connection = (HttpURLConnection) uri.toURL().openConnection();
-     
-        connection.setRequestMethod(method);
-       
-        connection.setRequestProperty("User-Agent", USER_AGENT);
-        connection.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
-        connection.setRequestProperty("Content-Type", "application/json");
-    
-        connection.setConnectTimeout(CONNECTION_TIMEOUT);
-        connection.setReadTimeout(READ_TIMEOUT);
+		connection = (HttpURLConnection) uri.toURL().openConnection();
 
-       
-        String result = connection.getResponseCode() == 200 ? readFromConnection() : "";
+		connection.setRequestMethod(method);
 
-        
-        connection.disconnect();
+		connection.setRequestProperty("User-Agent", USER_AGENT);
+		connection.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
+		connection.setRequestProperty("Content-Type", "application/json");
 
-        return result;
-    }
+		connection.setConnectTimeout(CONNECTION_TIMEOUT);
+		connection.setReadTimeout(READ_TIMEOUT);
 
-    @NotNull
-    private String readFromConnection() throws Exception {
-        InputStreamReader inputStream = new InputStreamReader(connection.getInputStream());
-        StringBuilder response = new StringBuilder();
+		String result = connection.getResponseCode() == 200 ? readFromConnection() : "";
 
-        try (BufferedReader reader = new BufferedReader(inputStream)) {
-            String output;
+		connection.disconnect();
 
-            while ((output = reader.readLine()) != null)
-                response.append(output);
-        } catch (Exception exc) {
-            exc.printStackTrace();
-        }
+		return result;
+	}
 
-        return response.toString();
-    }
+	@NotNull
+	private String readFromConnection() throws Exception {
+		InputStreamReader inputStream = new InputStreamReader(connection.getInputStream());
+		StringBuilder response = new StringBuilder();
 
-    private URI setParameters(@NotNull URI uri, @NotNull Map<String, String> parameters) throws Exception {
-        return new URI(
-                uri.getScheme(),
-                uri.getAuthority(),
-                uri.getPath(),
-                getParametersString(parameters),
-                null);
-    }
+		try (BufferedReader reader = new BufferedReader(inputStream)) {
+			String output;
 
-    private String getParametersString(@NotNull Map<String, String> params) throws UnsupportedEncodingException {
-        StringBuilder result = new StringBuilder();
+			while ((output = reader.readLine()) != null)
+				response.append(output);
+		} catch (Exception exc) {
+			exc.printStackTrace();
+		}
 
-        for (Map.Entry<String, String> entry : params.entrySet()) {
-            result.append(entry.getKey());
-            result.append("=");
-            result.append(entry.getValue());
-            result.append("&");
-        }
+		return response.toString();
+	}
 
-        String resultString = result.toString();
+	private URI setParameters(@NotNull URI uri, @NotNull Map<String, String> parameters) throws Exception {
+		return new URI(uri.getScheme(), uri.getAuthority(), uri.getPath(), getParametersString(parameters), null);
+	}
 
-        return resultString.length() > 0
-                ? resultString.substring(0, resultString.length() - 1)
-                : resultString;
-    }
+	private String getParametersString(@NotNull Map<String, String> params) throws UnsupportedEncodingException {
+		StringBuilder result = new StringBuilder();
+
+		for (Map.Entry<String, String> entry : params.entrySet()) {
+			result.append(entry.getKey());
+			result.append("=");
+			result.append(entry.getValue());
+			result.append("&");
+		}
+
+		String resultString = result.toString();
+
+		return resultString.length() > 0 ? resultString.substring(0, resultString.length() - 1) : resultString;
+	}
 }

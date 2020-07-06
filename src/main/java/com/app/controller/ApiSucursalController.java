@@ -38,7 +38,7 @@ public class ApiSucursalController {
 
 	@Autowired
 	private SucursalService sucursalService;
-	
+
 	@Autowired
 	private SellerService sellerservice;
 
@@ -81,9 +81,10 @@ public class ApiSucursalController {
 	public ResponseEntity<?> addSucursal(@Valid @RequestBody SucursalDTO dto) {
 		try {
 			if (StringUtils.isBlank(dto.getNombre()))
-				return new ResponseEntity<>(new Mensaje(false, "ingrese el nombre del establecimineto"), HttpStatus.BAD_REQUEST);
-			
-			Sucursal sucursal =new Sucursal();
+				return new ResponseEntity<>(new Mensaje(false, "ingrese el nombre del establecimineto"),
+						HttpStatus.BAD_REQUEST);
+
+			Sucursal sucursal = new Sucursal();
 			Seller seller = sellerservice.get(dto.getSeller().getId());
 			sucursal.setSeller(seller);
 			sucursal.setNombre(dto.getNombre());
@@ -91,10 +92,10 @@ public class ApiSucursalController {
 			sucursal.setLat(dto.getLat());
 			sucursal.setLng(dto.getLng());
 			sucursal.setEstado(dto.getEstado());
-			
+
 			sucursalService.save(sucursal);
 			return new ResponseEntity<>(new Mensaje(true, "se registró nueva sucursal"), HttpStatus.OK);
-			
+
 		} catch (NoSuchElementException e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);

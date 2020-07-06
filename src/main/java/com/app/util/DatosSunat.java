@@ -4,12 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 public class DatosSunat {
-	
+
 	private String ruc;
 	private String razon;
 	private String ciiu;
@@ -20,6 +19,5 @@ public class DatosSunat {
 	private String nombComercial;
 	private String fechInscripcion;
 	private String direccion;
-	
 
 }

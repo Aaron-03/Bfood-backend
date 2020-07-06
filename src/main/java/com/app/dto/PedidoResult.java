@@ -10,11 +10,9 @@ import lombok.Data;
 @AllArgsConstructor
 @Data
 public class PedidoResult {
-	
+
 	private Seller seller;
 	private Pedido pedido;
 	private DetallePedido detallePedido;
-	
-
 
 }

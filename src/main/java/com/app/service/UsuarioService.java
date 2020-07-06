@@ -1,6 +1,5 @@
 package com.app.service;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,25 +13,30 @@ import java.util.Optional;
 @Transactional
 public class UsuarioService {
 
-    @Autowired
-    UsuarioRepository usuarioRepository;
+	@Autowired
+	UsuarioRepository usuarioRepository;
 
-    public Optional<Usuario> getByNombreUsuario(String username){
-        return usuarioRepository.findByUsername(username);
-    }
+	public Optional<Usuario> getByNombreUsuario(String username) {
+		return usuarioRepository.findByUsername(username);
+	}
 
-    public boolean existsByNombreUsuario(String username){
-        return usuarioRepository.existsByUsername(username);
-    }
+	public boolean existsByNombreUsuario(String username) {
+		return usuarioRepository.existsByUsername(username);
+	}
 
-    public boolean existsByEmail(String email){
-        return usuarioRepository.existsByEmail(email);
-    }
+	public boolean existsByEmail(String email) {
+		return usuarioRepository.existsByEmail(email);
+	}
 
-    public void save(Usuario usuario){
-        usuarioRepository.save(usuario);
-    }
-    public Usuario obtenerUsuario(String rucIn) {
-    	return usuarioRepository.spObtenerUser(rucIn);
-    }
+	public void save(Usuario usuario) {
+		usuarioRepository.save(usuario);
+	}
+
+	public Usuario obtenerUsuario(String rucIn) {
+		return usuarioRepository.spObtenerUser(rucIn);
+	}
+	public int eliminarUsuario(String param) {
+		return 0;
+	}
+	
 }

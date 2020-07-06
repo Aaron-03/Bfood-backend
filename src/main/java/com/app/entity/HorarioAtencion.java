@@ -1,7 +1,5 @@
 package com.app.entity;
 
-
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -25,12 +23,12 @@ public class HorarioAtencion {
 	@GeneratedValue
 	@Column(name = "horarioId")
 	private int id;
-	
+
 	@Column(name = "Days")
 	@Enumerated(EnumType.STRING)
 	private DayWeek dia;
-	
+
 	private String apertura;
 	private String cierre;
-	
+
 }

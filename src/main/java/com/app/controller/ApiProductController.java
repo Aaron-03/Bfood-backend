@@ -100,7 +100,7 @@ public class ApiProductController {
 		return list;
 	}
 
-	@GetMapping(path = "/ProductId/{id}",produces = "application/json")
+	@GetMapping(path = "/ProductId/{id}", produces = "application/json")
 	public ResponseEntity<?> encontrarById(@PathVariable("id") int id) {
 		Producto producto = productoService.get(id);
 		return new ResponseEntity<>(producto, HttpStatus.OK);
@@ -131,18 +131,17 @@ public class ApiProductController {
 
 	// end global methods for the page
 	// ========================================================================================
-	
 
 	@GetMapping(path = "/listProductByCategory/{id}")
-	public ResponseEntity<List<Producto>> listarByCategoria(@PathVariable("id") int id){
-		
+	public ResponseEntity<List<Producto>> listarByCategoria(@PathVariable("id") int id) {
+
 		List<Producto> lst = productoService.read().stream().filter(x -> x.getCategoria().getId() == id)
 				.collect(Collectors.toList());
-	
-		if (lst.size()==0) {
+
+		if (lst.size() == 0) {
 			return new ResponseEntity<>(lst, HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<>(lst, HttpStatus.OK);
-	
+
 	}
 }

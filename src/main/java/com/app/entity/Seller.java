@@ -1,6 +1,5 @@
 package com.app.entity;
 
-
 import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
@@ -32,7 +31,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "vendedor")
-public class Seller implements Serializable{
+public class Seller implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Id
@@ -43,30 +42,24 @@ public class Seller implements Serializable{
 	private String razon;
 	private String nombComercial;
 	private String direccion;
-	
-	
+
 	private String telefono;
 	private String web;
 	private String nomContacto;
 	private String logo;
 	private String email;
-	
+
 	@NotNull
-	@OneToMany( cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "solicitud_vendedor", joinColumns = @JoinColumn(name = "vendedorId"),
-    inverseJoinColumns = @JoinColumn(name = "solicitud_id"))
-    private Set<Solicitud> solicitud;
-	
-	@OneToOne( cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "cuenta_vendedor", joinColumns = @JoinColumn(name = "vendedorId"),
-    inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private Usuario usuario;	
-	
-	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinTable(name = "solicitud_vendedor", joinColumns = @JoinColumn(name = "vendedorId"), inverseJoinColumns = @JoinColumn(name = "solicitud_id"))
+	private Set<Solicitud> solicitud;
+
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinTable(name = "cuenta_vendedor", joinColumns = @JoinColumn(name = "vendedorId"), inverseJoinColumns = @JoinColumn(name = "user_id"))
+	private Usuario usuario;
+
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "vendedor", fetch = FetchType.EAGER)
 	@JsonBackReference
 	private List<Producto> products;
 
-
-	
 }

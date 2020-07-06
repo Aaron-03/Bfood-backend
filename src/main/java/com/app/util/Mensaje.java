@@ -9,7 +9,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Mensaje {
 	private boolean ok;
-    private String sms;
+	private String sms;
 
-   
 }
