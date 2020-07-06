@@ -20,7 +20,7 @@ import io.jsonwebtoken.UnsupportedJwtException;
 @Component
 public class JwtProvider {
 	private final static Logger logger = LoggerFactory.getLogger(JwtProvider.class);
-	
+
 	@Value("${jwt.secret}")
     private String secret;
 
@@ -39,10 +39,6 @@ public class JwtProvider {
     public String getNombreUsuarioFromToken(String token){
         return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody().getSubject();
     }
-
-//    public int getNombreIdFromToken(String token){
-//        return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody().getSubject();
-//    }
 
     public boolean validateToken(String token){
         try {

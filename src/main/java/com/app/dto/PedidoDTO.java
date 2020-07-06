@@ -8,14 +8,12 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.Setter;
 
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 public class PedidoDTO implements Serializable {
-	
-	
+
 	/**
 	 * 
 	 */
@@ -23,5 +21,5 @@ public class PedidoDTO implements Serializable {
 	@NonNull
 	private String fecha;
 	private int cantidad;
-	
+
 }

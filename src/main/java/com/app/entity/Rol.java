@@ -30,5 +30,4 @@ public class Rol {
 	@Column(name = "rol_nombre")
 	@Enumerated(EnumType.STRING)
 	private RolNombre rolNombre;
-	
 }

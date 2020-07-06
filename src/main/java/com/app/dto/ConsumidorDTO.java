@@ -11,19 +11,18 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ConsumidorDTO  implements Serializable{
-	
+public class ConsumidorDTO implements Serializable {
+
 	private static final long serialVersionUID = 1L;
-	
-    @NotBlank
+
+	@NotBlank
 	private String dni;
 	private String nombres;
 	private String apellidos;
 	private String telefono;
 	private String fechaNac;
 	private String sexo;
-	
-	private Usuario usuario;
 
+	private Usuario usuario;
 
 }

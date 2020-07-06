@@ -338,4 +338,25 @@ public class ApiAdminController {
 			return ResponseEntity.ok(sellerJson);
 		}
 	}
+	/*@GetMapping("/perfiltwo")
+    public UsuarioPrincipal getAuthenticatedUsuario(HttpServletRequest request) {
+        String token = request.getHeader(tokenHeader);
+        String username = jwtProvider.getNombreUsuarioFromToken(token);
+        UsuarioPrincipal user = (UsuarioPrincipal) userDetailsServiceImpl.loadUserByUsername(username);
+        return user;
+    }
+	 * */
+	@DeleteMapping(path="/eliminar-usuario", produces = "application/json")
+	public ResponseEntity<?> eliminarUsuario(String token){
+		String username = jwtProvider.getNombreUsuarioFromToken(token);
+		try {
+			if( usuarioService.existsByNombreUsuario(username)) {
+				usuarioService.eliminarUsuario(username);
+			}
+			return new ResponseEntity<>(new Mensaje(true, "El usaurio se ah eliminado"), HttpStatus.OK);
+		}catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 }

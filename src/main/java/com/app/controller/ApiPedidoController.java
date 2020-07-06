@@ -8,6 +8,8 @@ import java.util.stream.Collectors;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -46,50 +48,95 @@ public class ApiPedidoController {
 
 	@Autowired
 	private ConsumidorService conServ;
-	
-	@Autowired 
+
+	@Autowired
 	private SellerService sellerService;
-	
-	@Autowired 
-	private  ProductoService productoService;
-	
-	
+
+	@Autowired
+	private ProductoService productoService;
 
 	private List<PedidoResult> pedidoResults;
-	
+
 	@GetMapping(path = "/list", produces = "application/json")
-	public List<PedidoResult> lstPedidos(){
-		int param=1;
-		Seller seller= sellerService.get(1);
-		//Producto producto = productoService.get(1);
-		Consumidor consumidor=conServ.get(1);
-		
+	public List<PedidoResult> lstPedidos() {
+		int param = 1;
+		Seller seller = sellerService.get(1);
+		// Producto producto = productoService.get(1);
+		Consumidor consumidor = conServ.get(1);
+
 		List<Pedido> lst = pedidoService.read().stream().filter(x -> x.getConsumidor() == consumidor)
 				.collect(Collectors.toList());
-		
-		List<DetallePedido> detallePedidos= new ArrayList<DetallePedido>();
-		
-		//detallePedidos= DetallePedidoService.read();
-		
+
+		List<DetallePedido> detallePedidos = new ArrayList<DetallePedido>();
+
+		// detallePedidos= DetallePedidoService.read();
+
 		pedidoResults = null;
-		
+
 		for (Pedido pedido : lst) {
-		
+
 			for (DetallePedido detallePedido : detallePedidos) {
-				if(seller.getId()==param) {
-					pedidoResults.add(new PedidoResult(seller, pedido,detallePedido));
+				if (seller.getId() == param) {
+					pedidoResults.add(new PedidoResult(seller, pedido, detallePedido));
 				}
 			}
 		}
-		
+
 		return pedidoResults;
-		 
 	}
+	
+	@GetMapping(path = "/vendor", produces = "application/json")
+	public ResponseEntity<?> lstDetailsOrders() {
+		
+		try {
+			
+			int vendorId = 1;
+			
+			List<Pedido> pedidos = pedidoService.read();
+			
+			
+			
+			return new ResponseEntity<>(pedidos, HttpStatus.OK);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+			return new ResponseEntity<>("No funcionó", HttpStatus.OK);
+		}
+	}
+	
+	// Aquí hirá la capa de seguridad
+	@GetMapping(path = "/customer", produces = "application/json")
+	public ResponseEntity<?> lstOrdersCustomer() {
+		
+		try {
+			
+			// Dato en duro - provicional
+			int customerId = 1;
+			
+			
+			List<Pedido> pedidos = pedidoService.read();
+			
+			for(Pedido pd : pedidos) {
+				if(pd.getConsumidor().getId() != customerId) {
+					pedidos.remove(pd);
+				}
+			}
 
-	@PostMapping(path = "/add/{id}", consumes = "application/json", produces = "application/json")
-	public String Registrar(@RequestBody Integer id, Pedido pedido) throws Exception {
+			return new ResponseEntity<>(pedidos, HttpStatus.OK);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+			return new ResponseEntity<>("No funcionó", HttpStatus.OK);
+		}
+	}
+	
 
-		Consumidor nuevoConsumidor = conServ.get(id);
+	@PostMapping(path = "/add", consumes = "application/json", produces = "application/json")
+	public String Registrar(@RequestBody Pedido pedido) throws Exception {
+
+		Consumidor nuevoConsumidor = conServ.get(pedido.getConsumidor().getId());
 
 		Pedido p = new Pedido();
 
@@ -111,8 +158,5 @@ public class ApiPedidoController {
 
 		return res.toString();
 	}
-	
-	
-	
 
 }

@@ -1,6 +1,5 @@
 package com.app.entity;
 
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
@@ -26,19 +25,18 @@ import lombok.Setter;
 @Table(name = "detalle_pedido")
 public class DetallePedido {
 
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int iddetalle;
 	@ManyToOne
-	@JoinColumn(name = "id_producto",nullable = false,foreignKey =@ForeignKey(name="pedido_producto_fk"))
+	@JoinColumn(name = "id_producto", nullable = false, foreignKey = @ForeignKey(name = "pedido_producto_fk"))
 	private Producto producto;
-	//private int idfactura;
+	// private int idfactura;
 	private int cantidad;
-	
+
 	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "idpedido")
 	private Pedido pedido;
-	
+
 }

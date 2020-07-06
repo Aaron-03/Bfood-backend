@@ -16,20 +16,11 @@ public class JwtDto {
 	private String username;
 	private int id;
 	private Collection<? extends GrantedAuthority> authorities;
-	
-	public JwtDto(String token, int id, String username, Collection<? extends GrantedAuthority> authorities) {
-		super();
-		this.token = token;
-		this.id = id;
-		this.username = username;
-		this.authorities = authorities;
-	}
-	
+
 	public JwtDto(String token, String username, Collection<? extends GrantedAuthority> authorities) {
 		super();
 		this.token = token;
 		this.username = username;
 		this.authorities = authorities;
 	}
-	
 }

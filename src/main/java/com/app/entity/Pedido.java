@@ -34,13 +34,13 @@ public class Pedido {
 	private Date fecha;
 	private String descripcion;
 	@ManyToOne
-	@JoinColumn(name = "id_consumidor",nullable = false,foreignKey = @ForeignKey(name="pedido_consumidor_fk"))
+	@JoinColumn(name = "id_consumidor", nullable = false, foreignKey = @ForeignKey(name = "pedido_consumidor_fk"))
 	private Consumidor consumidor;
 	private double total;
 	private String status;
-	@OneToMany(mappedBy = "pedido",cascade = {CascadeType.ALL},orphanRemoval = true)
+	@OneToMany(mappedBy = "pedido", cascade = { CascadeType.ALL }, orphanRemoval = true)
 	private List<DetallePedido> detalles;
-	
+
 	public Pedido(Date fecha, Consumidor consumidor, double total, String status, List<DetallePedido> detalles) {
 		super();
 		this.fecha = fecha;
@@ -49,19 +49,12 @@ public class Pedido {
 		this.status = status;
 		this.detalles = detalles;
 	}
-	
-	
+
 }
 
-
-/*create table pedidos(
-	no_pedido varchar(10),
-    descripcion varchar(100),
-    id_ven int,
-    ruc_ven varchar(12),
-    id_cli int,
-    cantidad int,
-    primary key(no_pedido),
-    CONSTRAINT FK_ven3 FOREIGN KEY (id_ven) references vendedor(id_ven),
-    CONSTRAINT FK_cli2 FOREIGN KEY (id_cli) references clientes(id_cli)
-);*/
+/*
+ * create table pedidos( no_pedido varchar(10), descripcion varchar(100), id_ven
+ * int, ruc_ven varchar(12), id_cli int, cantidad int, primary key(no_pedido),
+ * CONSTRAINT FK_ven3 FOREIGN KEY (id_ven) references vendedor(id_ven),
+ * CONSTRAINT FK_cli2 FOREIGN KEY (id_cli) references clientes(id_cli) );
+ */

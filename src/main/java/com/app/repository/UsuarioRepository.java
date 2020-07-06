@@ -11,11 +11,17 @@ import java.util.Optional;
 
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
+
+	Optional<Usuario> findByUsername(String username);
+
+	boolean existsByUsername(String username);
+
+	boolean existsByEmail(String email);
+
+	@Query(value = "{call sp_obtener_user(:rucIn)}", nativeQuery = true)
+	Usuario spObtenerUser(@Param("rucIn") String rucIn);
 	
-    Optional<Usuario> findByUsername(String username);
-    boolean existsByUsername(String username);
-    boolean existsByEmail(String email);
-    
-    @Query(value = "{call sp_obtener_user(:rucIn)}",nativeQuery = true)
-    Usuario spObtenerUser(@Param("rucIn") String rucIn);
+	@Query(value = "{call sp_eliminar_user(:param)}", nativeQuery = true)
+	int spEliminarUsuario(@Param("param") String param);
+	
 }

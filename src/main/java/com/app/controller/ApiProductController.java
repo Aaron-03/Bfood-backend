@@ -97,7 +97,7 @@ public class ApiProductController {
 	}
 
 	
-	@PreAuthorize("hasRole('ROLE_VENDEDOR')")
+	// @PreAuthorize("hasRole('ROLE_VENDEDOR')")
 	@PutMapping(path = "/actualizar-producto", consumes = "application/json", produces = "application/json")
 	public ResponseEntity<?> updateProducto(@Valid @RequestBody Producto product) {
 		try {
@@ -135,7 +135,7 @@ public class ApiProductController {
 	}
 	
 	
-	@PreAuthorize("hasRole('ROLE_VENDEDOR')")
+	// @PreAuthorize("hasRole('ROLE_VENDEDOR')")
 	@PutMapping(path = "/dlt", consumes = "application/json", produces = "application/json")
 	public ResponseEntity<?> deleteProduct(@RequestBody String productId) {
 		
@@ -204,15 +204,15 @@ public class ApiProductController {
 	// ========================================================================================
 
 	@GetMapping(path = "/listProductByCategory/{id}")
-	public ResponseEntity<List<Producto>> listarByCategoria(@PathVariable("id") int id){
-		
+	public ResponseEntity<List<Producto>> listarByCategoria(@PathVariable("id") int id) {
+
 		List<Producto> lst = productoService.read().stream().filter(x -> x.getCategoria().getId() == id)
 				.collect(Collectors.toList());
-	
-		if (lst.size()==0) {
+
+		if (lst.size() == 0) {
 			return new ResponseEntity<>(lst, HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<>(lst, HttpStatus.OK);
-	
+
 	}
 }

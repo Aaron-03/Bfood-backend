@@ -24,17 +24,15 @@ import com.app.jwts.JwtTokenFilter;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class ApiConfig extends WebSecurityConfigurerAdapter {
 
-
 	@Bean
 	public RestTemplate restTemplate() {
 		return new RestTemplate();
 	}
-	
-	
+
 	// ================ all reference to login
 	@Autowired
 	private UserDetailsService userDetailsService;
-	
+
 	@Autowired
 	JwtEntryPoint jwtEntryPoint;
 
@@ -48,7 +46,7 @@ public class ApiConfig extends WebSecurityConfigurerAdapter {
 		return new BCryptPasswordEncoder();
 
 	}
-	
+
 	@Bean
 	public AuthenticationManager authenticationManagerBean() throws Exception {
 		return super.authenticationManagerBean();
@@ -58,24 +56,17 @@ public class ApiConfig extends WebSecurityConfigurerAdapter {
 	public JwtTokenFilter jwtTokenFilter() {
 		return new JwtTokenFilter();
 	}
-	
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.cors().and().csrf().disable().authorizeRequests()
-				.antMatchers(HttpMethod.GET,
-						"/",
-						"/myspace/**", 
-						"/*.html", 
-						"/favicon.ico",
-						"/**/*.html", 
-						"/**/*.css",
+				.antMatchers(HttpMethod.GET, "/", "/myspace/**", "/*.html", "/favicon.ico", "/**/*.html", "/**/*.css",
 						"/**/*.js")
-				.permitAll().antMatchers("/bfood/**").permitAll().anyRequest().authenticated()
-				.and()
-                .exceptionHandling().authenticationEntryPoint(jwtEntryPoint) //
-				.and()                                                       //
+				.permitAll().antMatchers("/bfood/**").permitAll().anyRequest().authenticated().and().exceptionHandling()
+				.authenticationEntryPoint(jwtEntryPoint) //
+				.and() //
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-		 http.addFilterBefore(jwtTokenFilter(),  //
-		 UsernamePasswordAuthenticationFilter.class);//
+		http.addFilterBefore(jwtTokenFilter(), //
+				UsernamePasswordAuthenticationFilter.class);//
 	}
 }

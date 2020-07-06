@@ -10,18 +10,14 @@ import com.app.repository.SolicitudRepository;
 import com.app.service.SolicitudService;
 
 @Service
-public class SolicitudImpl extends DaoImpl<Solicitud, Integer> implements SolicitudService{
+public class SolicitudImpl extends DaoImpl<Solicitud, Integer> implements SolicitudService {
 
 	@Autowired
 	private SolicitudRepository solicitudRepository;
-	
+
 	@Override
 	public CrudRepository<Solicitud, Integer> getDao() {
 		return solicitudRepository;
 	}
-
-	
-
-	
 
 }

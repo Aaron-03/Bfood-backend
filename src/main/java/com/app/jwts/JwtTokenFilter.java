@@ -17,7 +17,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.app.service.UserDetailsServiceImpl;
 
-
 public class JwtTokenFilter extends OncePerRequestFilter {
 	private final static Logger logger = LoggerFactory.getLogger(JwtTokenFilter.class);
 
@@ -26,7 +25,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
 //	@Autowired
 //	UserDetailsServiceImpl userDetailsService;
-	
+
 	@Autowired
 	private UserDetailsServiceImpl userDetailsService;
 

@@ -1,7 +1,5 @@
 package com.app.impl;
 
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
@@ -22,7 +20,4 @@ public class SucursalImp extends DaoImpl<Sucursal, Integer> implements SucursalS
 		return sucursalRepository;
 	}
 
-	
-
-	
 }

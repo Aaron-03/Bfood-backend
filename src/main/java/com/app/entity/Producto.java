@@ -28,32 +28,27 @@ public class Producto implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "productoId")
-    private int id;
- 
-    private String nombre;
-    private String descripcion;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "productoId")
+	private int id;
 
-    private float precio;
-    private int position;
-    
-    
-    @ManyToOne
-    @JoinColumn(name="idcategoria")
-    private Categoria categoria;
-    
-    private int stock;
-    private String img;
-    private boolean publish;
-    private String status;
-    
-    @ManyToOne
-    @JoinColumn(name = "idvendedor")
-    private Seller vendedor;
+	private String nombre;
+	private String descripcion;
 
-	
-    
-    
+	private float precio;
+	private int position;
+
+	@ManyToOne
+	@JoinColumn(name = "idcategoria")
+	private Categoria categoria;
+
+	private int stock;
+	private String img;
+	private boolean publish;
+	private String status;
+
+	@ManyToOne
+	@JoinColumn(name = "idvendedor")
+	private Seller vendedor;
 
 }

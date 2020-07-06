@@ -9,13 +9,9 @@ import com.app.entity.Producto;
 import com.app.repository.ProductoRepository;
 import com.app.service.ProductoService;
 
-
-
-
 @Service
 public class ProductoImpl extends DaoImpl<Producto, Integer> implements ProductoService {
 
-	
 	@Autowired
 	private ProductoRepository productoRepository;
 
