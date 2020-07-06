@@ -29,7 +29,7 @@ import com.app.util.GoogleMapsApi;
 import com.app.util.Mensaje;
 
 @RestController
-@RequestMapping("/bfood")
+@RequestMapping("/bfood/sucursal")
 @CrossOrigin
 public class ApiSucursalController {
 

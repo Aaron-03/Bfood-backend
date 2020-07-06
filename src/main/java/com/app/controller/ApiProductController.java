@@ -198,7 +198,6 @@ public class ApiProductController {
 
 	// end global methods for the page
 	// ========================================================================================
-	
 
 	@GetMapping(path = "/listProductByCategory/{id}")
 	public ResponseEntity<List<Producto>> listarByCategoria(@PathVariable("id") int id){
