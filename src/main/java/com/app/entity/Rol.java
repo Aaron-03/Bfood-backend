@@ -10,6 +10,7 @@ import javax.persistence.Id;
 
 import com.app.enums.RolNombre;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,7 +18,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-
+@Data
 @Entity
 public class Rol {
 
@@ -29,8 +30,5 @@ public class Rol {
 	@Column(name = "rol_nombre")
 	@Enumerated(EnumType.STRING)
 	private RolNombre rolNombre;
-
-	
-	
 	
 }

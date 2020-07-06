@@ -19,12 +19,16 @@ public class CreateCategoria implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-    	/*Categoria c1= new Categoria("Sopas");
-    	Categoria c2= new Categoria("Pastas");
-    	Categoria c3= new Categoria("Entradas");
-    	categoriaService.save(c1);
-    	categoriaService.save(c2);
-    	categoriaService.save(c3);*/
-        
+    	
+    	Categoria c = categoriaService.get(1);
+    	
+    	if(c == null) {
+    		Categoria c1= new Categoria("Sopas");
+        	Categoria c2= new Categoria("Pastas");
+        	Categoria c3= new Categoria("Entradas");
+        	categoriaService.save(c1);
+        	categoriaService.save(c2);
+        	categoriaService.save(c3);	
+    	}
     }
 }

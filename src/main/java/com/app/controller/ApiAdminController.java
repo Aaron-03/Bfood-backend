@@ -3,6 +3,7 @@ package com.app.controller;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
@@ -35,11 +36,13 @@ import com.app.entity.Consumidor;
 import com.app.entity.Rol;
 import com.app.entity.Seller;
 import com.app.entity.Usuario;
+import com.app.entity.UsuarioPrincipal;
 import com.app.enums.RolNombre;
 import com.app.jwts.JwtDto;
 import com.app.jwts.JwtProvider;
 import com.app.service.ConsumidorService;
 import com.app.service.SellerService;
+import com.app.service.UserDetailsServiceImpl;
 import com.app.service.UsuarioService;
 import com.app.util.DatosSunat;
 import com.app.util.GobRestUtil;
@@ -69,9 +72,20 @@ public class ApiAdminController {
 
 	@Autowired
 	private JwtProvider jwtProvider;
+	
+	@Autowired
+    private UserDetailsServiceImpl usuarioDetailsServiceImpl;
 
 	// start method register seller account
 	// ========================================================================================
+	
+	@GetMapping("/perfiltwo")
+    public UsuarioPrincipal getAuthenticatedUsuario(HttpServletRequest request) {
+        String token = request.getHeader(tokenHeader);
+        String username = jwtProvider.getNombreUsuarioFromToken(token);
+        UsuarioPrincipal user = (UsuarioPrincipal) usuarioDetailsServiceImpl.loadUserByUsername(username);
+        return user;
+    }
 
 	@PostMapping("/registrar-solicitud")
 	public ResponseEntity<?> registrarVendedor(@Valid @RequestBody SellerDTO dto) {

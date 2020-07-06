@@ -7,13 +7,16 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -43,10 +46,14 @@ public class ApiProductController {
 	// start method register product only by seller
 	// ========================================================================================
 
-	//@PreAuthorize("hasRole('Vendedor')")
-	@PostMapping("/registrar-producto")
+	@PreAuthorize("hasRole('ROLE_VENDEDOR')")
+	@PostMapping(path = "/registrar-producto", consumes = "application/json", produces = "application/json")
 	public ResponseEntity<?> registrarProducto(@Valid @RequestBody ProductoDto dto) {
 		try {
+			
+			System.out.println("ROLES");
+			System.out.println(dto.toString());
+			System.out.println("El código es:" + dto.getCategoria().getId());
 
 			if (StringUtils.isBlank(dto.getNombre()))
 				return new ResponseEntity<>(new Mensaje(false, "Ingrese nombre de producto"), HttpStatus.BAD_REQUEST);
@@ -88,6 +95,65 @@ public class ApiProductController {
 		}
 		return false;
 	}
+	
+	@PutMapping(path = "/actualizar-producto", consumes = "application/json", produces = "application/json")
+	public ResponseEntity<?> updateProducto(@Valid @RequestBody Producto product) {
+		try {
+			
+			System.out.println("El código es:" + product.getCategoria().getId());
+
+			if (StringUtils.isBlank(product.getNombre()))
+				return new ResponseEntity<>(new Mensaje(false, "Ingrese nombre de producto"), HttpStatus.BAD_REQUEST);
+			if (product.getPrecio() < 0)
+				return new ResponseEntity<>(new Mensaje(false, "el precio debe ser mayor de 0"),
+						HttpStatus.BAD_REQUEST);
+			if (valExistProduct(product.getNombre()))
+				return new ResponseEntity<>(new Mensaje(false, " el nombre de producto ya existe"),
+						HttpStatus.BAD_REQUEST);
+
+			Producto p = productoService.get(product.getId());
+			Categoria c = categoriaService.get(product.getCategoria().getId());
+			p.setNombre(product.getNombre());
+			p.setDescripcion(product.getDescripcion());
+			p.setImg(product.getImg());
+			p.setPosition(product.getPosition());
+			p.setPrecio(product.getPrecio());
+			p.setStatus(product.getStatus());
+			p.setStock(product.getStock());
+			
+			p.setCategoria(c);
+			
+			productoService.save(p);
+			
+			return new ResponseEntity<>(new Mensaje(true, "Producto actualizado"), HttpStatus.OK);
+		} catch (NoSuchElementException e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+	
+	@PutMapping(path = "/dlt", consumes = "application/json", produces = "application/json")
+	public ResponseEntity<?> deleteProduct(@RequestBody String productId) {
+		
+		try {
+			JSONObject request = new JSONObject(productId);
+			int id = request.getInt("productId");
+
+			System.out.println("El código es:" + productId);
+			
+			Producto product = productoService.get(id);
+			
+			product.setStatus("D");
+			
+			productoService.save(product);
+
+			return new ResponseEntity<>(new Mensaje(true, "Producto eliminado"), HttpStatus.OK);
+		} catch (NoSuchElementException e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		
+	}
 
 	// end method register product only by seller
 	// ========================================================================================
@@ -101,7 +167,7 @@ public class ApiProductController {
 		return list;
 	}
 
-	@GetMapping(path = "/ProductId/{id}",produces = "application/json")
+	@GetMapping(path = "/ProductId/{id}", produces = "application/json")
 	public ResponseEntity<?> encontrarById(@PathVariable("id") int id) {
 		Producto producto = productoService.get(id);
 		return new ResponseEntity<>(producto, HttpStatus.OK);

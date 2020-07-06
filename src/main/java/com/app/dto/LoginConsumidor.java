@@ -8,10 +8,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public class LoginConsumidor {
-    @NotBlank
+
+	@NotBlank
     private String username;
     @NotBlank
     private String password;
 
-    
 }
