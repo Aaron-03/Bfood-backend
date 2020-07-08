@@ -224,7 +224,7 @@ public class ApiAdminController {
 		String pwd = conDto.getUsuario().getPassword();
 		String passEncryptado = bCryptPasswordEncode.encode(pwd);
 
-		Usuario usuario = new Usuario();
+		Usuario usuario = consumidor.getUsuario();
 		usuario.setEmail(conDto.getUsuario().getEmail());
 		usuario.setPassword(passEncryptado);
 
@@ -338,6 +338,7 @@ public class ApiAdminController {
 			return ResponseEntity.ok(sellerJson);
 		}
 	}
+
 	/*@GetMapping("/perfiltwo")
     public UsuarioPrincipal getAuthenticatedUsuario(HttpServletRequest request) {
         String token = request.getHeader(tokenHeader);
